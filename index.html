@@ -2,94 +2,53 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>To-Do List</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      background: #f4f4f4;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-    }
-
-    .container {
-      background: #fff;
-      padding: 20px;
-      border-radius: 10px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-      width: 300px;
-    }
-
-    h2 {
-      text-align: center;
-    }
-
-    input {
-      width: 70%;
-      padding: 8px;
-      margin-right: 5px;
-    }
-
-    button {
-      padding: 8px;
-      cursor: pointer;
-    }
-
-    ul {
-      list-style: none;
-      padding: 0;
-    }
-
-    li {
-      display: flex;
-      justify-content: space-between;
-      padding: 8px;
-      background: #eee;
-      margin-top: 5px;
-      border-radius: 5px;
-    }
-
-    .delete {
-      background: red;
-      color: white;
-      border: none;
-      border-radius: 3px;
-    }
-  </style>
+  <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body>
+<body class="bg-gray-100 flex items-center justify-center h-screen">
 
-<div class="container">
-  <h2>To-Do List</h2>
-  <input type="text" id="taskInput" placeholder="Enter task">
-  <button onclick="addTask()">Add</button>
-  <ul id="taskList"></ul>
-</div>
+  <div class="bg-white p-6 rounded-2xl shadow-lg w-80">
+    <h2 class="text-2xl font-bold text-center mb-4">To-Do List</h2>
 
-<script>
-  function addTask() {
-    const input = document.getElementById('taskInput');
-    const taskText = input.value.trim();
+    <div class="flex gap-2">
+      <input id="taskInput" type="text" placeholder="Enter task"
+        class="flex-1 border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400">
+      <button onclick="addTask()"
+        class="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600">Add</button>
+    </div>
 
-    if (taskText === '') return;
+    <ul id="taskList" class="mt-4 space-y-2"></ul>
+  </div>
 
-    const li = document.createElement('li');
-    li.textContent = taskText;
+  <script>
+    function addTask() {
+      const input = document.getElementById('taskInput');
+      const taskText = input.value.trim();
 
-    const delBtn = document.createElement('button');
-    delBtn.textContent = 'X';
-    delBtn.className = 'delete';
-    delBtn.onclick = function() {
-      li.remove();
-    };
+      if (taskText === '') return;
 
-    li.appendChild(delBtn);
-    document.getElementById('taskList').appendChild(li);
+      const li = document.createElement('li');
+      li.className = "flex justify-between items-center bg-gray-100 px-3 py-2 rounded-lg";
 
-    input.value = '';
-  }
-</script>
+      const span = document.createElement('span');
+      span.textContent = taskText;
+
+      const delBtn = document.createElement('button');
+      delBtn.textContent = 'X';
+      delBtn.className = "bg-red-500 text-white px-2 py-1 rounded hover:bg-red-600";
+      delBtn.onclick = function() {
+        li.remove();
+      };
+
+      li.appendChild(span);
+      li.appendChild(delBtn);
+
+      document.getElementById('taskList').appendChild(li);
+
+      input.value = '';
+    }
+  </script>
 
 </body>
 </html>
